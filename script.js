@@ -28,11 +28,16 @@ function capturePhoto() {
     // Create canvas to grab current frame
     const canvas = document.createElement("canvas");
     const context = canvas.getContext('2d');
+    
     canvas.width = videoElement.videoWidth;
     canvas.height = videoElement.videoHeight;
 
+    context.translate(canvas.width, 0); // Shift origin to right edge
+    context.scale(-1, 1);
     // Draw video frame to canvas (normal orientation)
     context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+    context.setTransform(1, 0, 0, 1, 0, 0);
 
     // Create img element from canvas
     const imgDataUrl = canvas.toDataURL('image/jpeg');
@@ -69,7 +74,7 @@ colorSelection.forEach(elm => {
     const bgColor = window.getComputedStyle(event.target).backgroundColor;
     const textColor = window.getComputedStyle(event.target).color;
     
-   	const finalGallery = document.querySelector('.displayPhotos.finalGallery');
+    const finalGallery = document.querySelector('.displayPhotos.finalGallery');
     const photoStripText = document.querySelector('.photostrip-text');
 
     if (finalGallery) {
@@ -82,6 +87,26 @@ colorSelection.forEach(elm => {
     }
   })
 })
+
+const save_strip_button = document.getElementById('saveStripButton');
+
+save_strip_button.addEventListener('click', function() {
+    const finalGallery = document.querySelector('.displayPhotos.finalGallery');
+
+    if (!finalGallery) return;
+
+    html2canvas(finalGallery).then(canvas => {
+        const imgDataUrl = canvas.toDataURL('image/jpeg');
+
+        const a = document.createElement('a');
+        a.href = imgDataUrl;
+        a.download = `strip_${Date.now()}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+});
+
 
 startButton.addEventListener('click', startWebcam);
 captureButton.addEventListener('click', capturePhoto);
