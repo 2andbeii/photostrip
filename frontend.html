@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Photobooth!</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main>
+    <h1>Capture Photobooth Pics!</h1>
+  </main>
+
+  <div class="container">
+    <div class="photoTaking">
+      <div class="cameraAndButtons">
+        <div class="cameraScreen">
+          <video id="videoElement" autoplay></video>
+        </div>
+        <div class="startButtonContainer">
+          <button id="startButton">Open Camera</button>
+          <button id="captureButton" disabled="true">Capture Photo</button>
+        </div>
+      </div>
+      
+      <div class="displayPhotos"></div>
+    </div>
+
+    <div class="decorationContainer">
+        <div class="colorSelection">
+          <span id="color1"></span>
+          <span id="color2"></span>
+          <span id="color3"></span>
+          <span id="color4"></span>
+          <span id="color5"></span>
+        </div>
+      </div>
+  </div>
+  <footer class="footer">
+    <p>2andbeii On GitHub</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
